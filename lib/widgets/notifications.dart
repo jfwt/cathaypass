@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/reselect/reselectpage.dart';
-import 'package:recipe_app/size_config.dart';
 
 class NotificationsPopUp extends StatelessWidget {
   const NotificationsPopUp({Key key}) : super(key: key);
@@ -14,17 +13,17 @@ class NotificationsPopUp extends StatelessWidget {
       insetPadding: EdgeInsets.all(16),
       backgroundColor: Colors.transparent,
       child: Container(
-        width: SizeConfig.screenWidth*0.8,
-        height: SizeConfig.screenHeight*0.85,
+        padding: EdgeInsets.all(16),
+        // width: SizeConfig.screenWidth*0.8,
+        // height: SizeConfig.screenHeight*0.85,
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
-            SizedBox(height: 16,),
             Container(
-              width: SizeConfig.screenWidth*0.8-32,
+              //width: SizeConfig.screenWidth*0.8-32,
               padding: EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.8),
@@ -46,7 +45,7 @@ class NotificationsPopUp extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ReselectPage()));
               },
               child: Container(
-                width: SizeConfig.screenWidth*0.8-32,
+                //width: SizeConfig.screenWidth*0.8-32,
                 padding: EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.8),

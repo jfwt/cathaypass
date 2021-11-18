@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/components/my_bottom_nav_bar.dart';
 import 'package:recipe_app/constants.dart';
 import 'package:recipe_app/models/task.dart';
+import 'package:recipe_app/screens/reselect/reselectpage.dart';
 import 'package:recipe_app/widgets/datepicker.dart';
 import 'package:recipe_app/widgets/tasktimeline.dart';
 
@@ -54,6 +55,38 @@ class CalendarPage extends StatelessWidget {
         ],
       ),
       // bottomNavigationBar: MyBottomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _notification(context);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _notification(BuildContext context) {
+    return Dialog(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ReselectPage()));
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              SizedBox(width: 16,),
+              Icon(Icons.warning_rounded, color: Color(0xFFFD2F22),),
+              SizedBox(width: 16,),
+              Flexible(child: Text('Your travel plan has been rescheduled due to a flight delay. Please confirm changes.' , maxLines: 4, overflow: TextOverflow.ellipsis,)),
+              SizedBox(width: 8,)
+            ],
+          ),
+        ),
+      ),
     );
   }
 

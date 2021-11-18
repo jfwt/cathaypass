@@ -8,8 +8,9 @@ import 'package:recipe_app/screens/covid/menu.dart';
 
 class BookScreen extends StatefulWidget {
   DateTimeRange _dateRange;
+  String _destination;
 
-  BookScreen({DateTimeRange dateRange}): _dateRange = dateRange;
+  BookScreen({DateTimeRange dateRange, String destination}): _dateRange = dateRange, _destination = destination;
 
   @override
   _BookScreenState createState() => _BookScreenState();
@@ -28,7 +29,7 @@ class _BookScreenState extends State<BookScreen> {
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           _buildHeader(screenHeight),
-          _buildTicket(screenHeight, widget._dateRange),
+          _buildTicket(screenHeight, widget._dateRange, widget._destination),
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(),
@@ -107,7 +108,7 @@ class _BookScreenState extends State<BookScreen> {
   }
 }
 
-SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange) {
+SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, String destination) {
   bool isChecked = true;
   DateFormat dateFormatFullEn = DateFormat('dd MMM yyyy',);
   return SliverToBoxAdapter(
@@ -285,7 +286,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange) {
                     SizedBox(
                         width: 100,
                         child: Text(
-                          "San Fransisco",
+                          'Seoul',
                           textAlign: TextAlign.end,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )),
@@ -503,14 +504,21 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange) {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    "Reselect",
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.dark,
+                Container(
+                  height: 36,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppColors.kPrimaryColor
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Reselect",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -583,7 +591,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange) {
               color: Colors.white,
             ),
             label: Text(
-              'CONFIRM',
+              'Confirm',
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,

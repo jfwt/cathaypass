@@ -234,7 +234,7 @@ class ReselectPage extends StatelessWidget {
             ),
             SizedBox(height: 16,),
             Container(
-              width: SizeConfig.screenWidth*0.9,
+              //width: SizeConfig.screenWidth*0.9,
               padding: EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.8),
