@@ -100,10 +100,29 @@ class Body extends StatelessWidget {
                 Container(
                   height: 128,
                   width: 128,
-                  child: ClipOval(
-                      child: Image.asset("assets/images/pic.png", fit: BoxFit.cover,)
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/pic.png",),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(128.0)),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 6.0,
+                    ),
                   ),
                 ),
+                // Container(
+                //   height: 128,
+                //   width: 128,
+                //   child: ClipOval(
+                //       child: Container(
+                //           height: 116,
+                //           width: 116,
+                //           child: Image.asset("assets/images/pic.png", fit: BoxFit.cover,)
+                //       )
+                //   ),
+                // ),
                 SizedBox(height: 16,),
                 Text('Fung Dean', style: TextStyle(fontSize: 32, fontFamily: 'Pangram'),),
                 SizedBox(height: 16,),
@@ -128,7 +147,7 @@ class Body extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: EdgeInsets.fromLTRB(16,16,16,8),
                 child: Row(
                   children: [
                     Icon(Icons.receipt_long, color: Colors.white,),
@@ -139,6 +158,7 @@ class Body extends StatelessWidget {
                   ],
                 ),
               ),
+              Divider(color: AppColors.kPrimaryColor.withOpacity(0.2),),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -149,8 +169,8 @@ class Body extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0xFF085D63).withOpacity(0.3)),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  //decoration: BoxDecoration(color: Color(0xFF085D63).withOpacity(0.3)),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
                       Icon(Icons.fact_check_outlined, color: Colors.white,),
@@ -162,8 +182,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
               ),
+              Divider(color: AppColors.kPrimaryColor.withOpacity(0.2),),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
                     Icon(Icons.lightbulb, color: Colors.white,),
@@ -174,8 +195,9 @@ class Body extends StatelessWidget {
                   ],
                 ),
               ),
+              Divider(color: AppColors.kPrimaryColor.withOpacity(0.2),),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
                     Icon(Icons.warning_rounded, color: Colors.white,),
@@ -186,8 +208,9 @@ class Body extends StatelessWidget {
                   ],
                 ),
               ),
+              Divider(color: AppColors.kPrimaryColor.withOpacity(0.2),),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
                     Icon(Icons.help, color: Colors.white,),

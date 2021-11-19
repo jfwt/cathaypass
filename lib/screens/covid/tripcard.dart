@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:recipe_app/constants.dart';
 import 'package:recipe_app/screens/booking/flight.dart';
+import 'package:recipe_app/screens/reselect/reselectpage.dart';
 
 class TripCard extends StatefulWidget {
   String _tripNumber;
@@ -74,18 +75,21 @@ class _TripCardState extends State<TripCard> {
                 )*/
               ],
             ),
-            if(widget._warning != '') Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              width: 180,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Color(0xFFFD2F22)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.warning_rounded, color: Colors.white, size: 16,),
-                    SizedBox(width: 8,),
-                    Text(widget._warning, style: TextStyle(color: Colors.white),),
-                  ],
-                )
+            if(widget._warning != '') GestureDetector(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReselectPage())),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                width: 180,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Color(0xFFFD2F22)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.warning_rounded, color: Colors.white, size: 16,),
+                      SizedBox(width: 8,),
+                      Text(widget._warning, style: TextStyle(color: Colors.white),),
+                    ],
+                  )
+              ),
             ),
             SizedBox(height: 16,),
             Row(

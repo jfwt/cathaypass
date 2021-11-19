@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/components/custom_nav_bar.dart';
 import 'package:recipe_app/components/my_bottom_nav_bar.dart';
 import 'package:recipe_app/constants.dart';
+import 'package:recipe_app/models/trip.dart';
 import 'package:recipe_app/screens/covid/tripcard.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -69,18 +70,34 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
+  List<Trip> tripList = generateTrips();
+
   SliverToBoxAdapter _buildPreventionTips(double screenHeight) {
     return SliverToBoxAdapter(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
         child: Column(
           children: [
+            // Expanded(
+            //   child: ListView.builder(
+            //     itemCount: tripList.length,
+            //       itemBuilder: (context, index) {
+            //         return TripCard(
+            //           tripNumber: tripList[index].tripNumber,
+            //           destination: tripList[index].destination,
+            //           destinationList: tripList[index].destinationList,
+            //           warning: tripList[index].warning,
+            //           plannedTrip: tripList[index].plannedTrip,
+            //         );
+            //       }
+            //   ),
+            // ),
             TripCard(
               tripNumber: 'Trip 1',
               destination: destination,
               destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
               warning: 'Reschedule needed',
-              plannedTrip: true
+              plannedTrip: false
             ),
             SizedBox(height: 32,),
             TripCard(
@@ -88,7 +105,7 @@ class _MenuScreenState extends State<MenuScreen> {
               destination: destination,
               destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
               warning: '',
-                plannedTrip: true
+                plannedTrip: false
             ),
             SizedBox(height: 32,),
             TripCard(

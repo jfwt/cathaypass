@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/components/custom_nav_bar.dart';
 import 'package:recipe_app/components/my_bottom_nav_bar.dart';
 import 'package:recipe_app/constants.dart';
+import 'package:recipe_app/screens/booking/flight.dart';
 
 class ReselectPage extends StatelessWidget {
   const ReselectPage({Key key}) : super(key: key);
@@ -15,16 +16,17 @@ class ReselectPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(
           children: [
-            SizedBox(height: 16,),
-            Align(child: Text('Your original booking is delayed', style: TextStyle(fontSize: 20),), alignment: Alignment.centerLeft,),
+            Align(child: Text('Your original booking is cancelled:', style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Pangram'
+            ),), alignment: Alignment.centerLeft,),
             SizedBox(height: 16,),
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24))),
+                  borderRadius: BorderRadius.circular(24)),
               child: Column(
                 children: <Widget>[
                   Center(
@@ -36,13 +38,13 @@ class ReselectPage extends StatelessWidget {
                             color: Colors.green.shade50,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Icon(Icons.flight_land, color: AppColors.kTextLigntColor),
+                          child: Icon(Icons.flight_takeoff, color: AppColors.kTextLigntColor),
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "Flight",
+                          "Outbound Flight",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -55,7 +57,7 @@ class ReselectPage extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        "HKG",
+                        "ICN",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -141,7 +143,7 @@ class ReselectPage extends StatelessWidget {
                         width: 16,
                       ),
                       Text(
-                        "SFO",
+                        "HKG",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -149,20 +151,18 @@ class ReselectPage extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       SizedBox(
                           width: 100,
                           child: Text(
-                            "Hong Kong",
+                            "Seoul",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )),
                       Text(
-                        "6H 30M",
+                        "3H 30M",
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class ReselectPage extends StatelessWidget {
                       SizedBox(
                           width: 100,
                           child: Text(
-                            "San Fransisco",
+                            'Hong Kong',
                             textAlign: TextAlign.end,
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )),
@@ -184,7 +184,7 @@ class ReselectPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "08:00 AM",
+                        "10:00 AM",
                         style: TextStyle(
                             fontSize: 18,
                             color: AppColors.dark,
@@ -204,7 +204,7 @@ class ReselectPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "18 Nov 2021",
+                        '26 Nov',
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       Row(
@@ -214,7 +214,7 @@ class ReselectPage extends StatelessWidget {
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                           Text(
-                            "CX8986",
+                            "CX8987",
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -228,6 +228,8 @@ class ReselectPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 16,),
+                  Align(child: Text('CANCELLED', style: TextStyle(color: Color(0xFFFD2F22), fontSize: 20, fontWeight: FontWeight.w600),), alignment: Alignment.centerRight,)
                 ],
               ),
             ),
@@ -236,7 +238,7 @@ class ReselectPage extends StatelessWidget {
               //width: SizeConfig.screenWidth*0.9,
               padding: EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
+                color: Color(0xFFFD2F22).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -251,9 +253,15 @@ class ReselectPage extends StatelessWidget {
             ),
             SizedBox(height: 16,),
             Container(
+              height: 48,
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.kPrimaryColor),
-              child: TextButton(child: Text('Reselect flight', style: TextStyle(color: Colors.white,),), onPressed: () {},),
+              child: TextButton(
+                child: Text('Reselect flight', style: TextStyle(color: Colors.white,),),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => BookScreen()));
+                },
+              ),
             ),
             // TextButton(child: Text('or Reselect'), onPressed: () {},),
           ],

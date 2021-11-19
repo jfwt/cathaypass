@@ -46,7 +46,7 @@ class _SubscriptionPlansState extends State<SubscriptionPage> {
             SizedBox(height: 200,),
             Align(child: Text('Choose a plan', style: TextStyle(fontSize: 42, color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Pangram'),), alignment: Alignment.centerLeft,),
             //CarouselImage(),
-            //SizedBox(height: 16,),
+            SizedBox(height: 16,),
             Expanded(child: Container(
               child: ListView.builder(
                   itemCount: subscriptionPlanList.length,
