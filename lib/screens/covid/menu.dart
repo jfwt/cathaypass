@@ -79,18 +79,24 @@ class _MenuScreenState extends State<MenuScreen> {
               tripNumber: 'Trip 1',
               destination: destination,
               destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              warning: 'Reschedule needed',
+              plannedTrip: true
             ),
             SizedBox(height: 32,),
             TripCard(
               tripNumber: 'Trip 2',
               destination: destination,
               destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              warning: '',
+                plannedTrip: true
             ),
             SizedBox(height: 32,),
             TripCard(
               tripNumber: 'Trip 3',
               destination: destination,
               destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              warning: '',
+                plannedTrip: false
             ),
           ],
         )

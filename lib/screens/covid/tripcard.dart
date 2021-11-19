@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:recipe_app/constants.dart';
 import 'package:recipe_app/screens/booking/flight.dart';
 
 class TripCard extends StatefulWidget {
   String _tripNumber;
   String _destination;
   List<String> _destinationList;
-  TripCard({String tripNumber, String destination, List<String> destinationList,}) : _tripNumber = tripNumber, _destination = destination, _destinationList = destinationList;
+  String _warning;
+  bool _plannedTrip;
+  TripCard({String tripNumber, String destination, List<String> destinationList, String warning, bool plannedTrip,}) : _tripNumber = tripNumber, _destination = destination, _destinationList = destinationList, _warning = warning, _plannedTrip = plannedTrip;
 
   @override
   _TripCardState createState() => _TripCardState();
@@ -21,10 +24,10 @@ class _TripCardState extends State<TripCard> {
   Widget build(BuildContext context) {
     return Container(
         //width: SizeConfig.screenWidth*0.9,
-        height: 180,
+        height: widget._warning == '' ? 180 : 200,
         padding: EdgeInsets.fromLTRB(16,16,16,24),
         decoration: BoxDecoration(
-          color: Colors.black54,
+            color: Colors.black54,
             borderRadius: BorderRadius.circular(16),
             image: DecorationImage(
               image: AssetImage('assets/images/${widget._destination.toLowerCase().split(' ').first}.jpg'),
@@ -32,7 +35,7 @@ class _TripCardState extends State<TripCard> {
               colorFilter: new ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.dstATop),
             )
         ),
-        child: Column(
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -41,14 +44,48 @@ class _TripCardState extends State<TripCard> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 4),
-                  child: Text(widget._tripNumber, style: TextStyle(fontSize: 32, color: Colors.white, fontFamily: 'Pangram', fontWeight: FontWeight.w600),),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(widget._tripNumber, style: TextStyle(fontSize: 32, color: Colors.white, fontFamily: 'Pangram', fontWeight: FontWeight.w600),),
+                      SizedBox(width: 8,),
+                      if(widget._plannedTrip) Container(child: Text('CONFIRMED', style: TextStyle(color: AppColors.lightSlate, fontWeight: FontWeight.w600),), padding: EdgeInsets.only(top: 8),),
+                    ],
+                  ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BookScreen(dateRange: pickedDateRange,)));
-                    },
-                    child: Icon(Icons.edit, color: Colors.white,))
+                Container(
+                  width: 36,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookScreen(dateRange: pickedDateRange,)));
+                      },
+                      child: Icon(Icons.edit, color: Colors.white,)
+                  ),
+                )
+                /*Container(
+                  height: 48,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.kPrimaryColor),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text('Start planning', style: TextStyle(color: AppColors.white, fontSize: 18),),
+                  ),
+                )*/
               ],
+            ),
+            if(widget._warning != '') Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              width: 180,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Color(0xFFFD2F22)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.warning_rounded, color: Colors.white, size: 16,),
+                    SizedBox(width: 8,),
+                    Text(widget._warning, style: TextStyle(color: Colors.white),),
+                  ],
+                )
             ),
             SizedBox(height: 16,),
             Row(
@@ -76,8 +113,12 @@ class _TripCardState extends State<TripCard> {
                               );
                             }).toList(),
                             value: widget._destination,
-                            onChanged: (val) => setState(() => widget._destination = val,
-                          ),
+                            onChanged: (val) {
+                              setState(() => widget._destination = val,);
+                              setState(() {
+                                widget._plannedTrip = true;
+                              });
+                              },
                         ),
                       ))
                     ]
