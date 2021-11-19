@@ -57,7 +57,21 @@ class CalendarPage extends StatelessWidget {
       // bottomNavigationBar: MyBottomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _notification(context);
+          // _notification(context);
+          showGeneralDialog(
+              context: context,
+              transitionBuilder: (context, a1, a2, widget) {
+                final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+                return Transform(
+                  transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+                  child: _notification(context),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 200),
+              barrierDismissible: true,
+              barrierLabel: '',
+              pageBuilder: (context, animation1, animation2) {}
+          );
         },
         child: Icon(Icons.add),
       ),
@@ -65,44 +79,44 @@ class CalendarPage extends StatelessWidget {
   }
 
   Widget _notification(BuildContext context) {
-    return Dialog(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ReselectPage()));
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: 16,),
-              Icon(Icons.warning_rounded, color: Color(0xFFFD2F22),),
-              SizedBox(width: 16,),
-              Flexible(child: Text('Your travel plan has been rescheduled due to a flight delay. Please confirm changes.' , maxLines: 4, overflow: TextOverflow.ellipsis,)),
-              SizedBox(width: 8,)
-            ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Dialog(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ReselectPage()));
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 16,),
+                  Icon(Icons.warning_rounded, color: Color(0xFFFD2F22),),
+                  SizedBox(width: 16,),
+                  Flexible(child: Text('Your travel plan has been rescheduled due to a flight delay. Please confirm changes.' , maxLines: 4, overflow: TextOverflow.ellipsis,)),
+                  SizedBox(width: 8,)
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+        Expanded(child: SizedBox(height: 16,))
+      ],
     );
   }
 
   Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 90,
+      expandedHeight: 64,
       backgroundColor: AppColors.green,
-      leading: IconButton(
-        onPressed: () => Navigator.of(context).pop(),
-        icon: Icon(Icons.arrow_back_ios),
-        iconSize: 20,
-      ),
       actions: [
         Icon(
-          Icons.more_vert,
-          size: 40,
+          Icons.notifications,
         )
       ],
       flexibleSpace: FlexibleSpaceBar(

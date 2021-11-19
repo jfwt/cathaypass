@@ -10,7 +10,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0.0,
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.notifications),
+          icon: Stack(
+              children: [
+                Icon(Icons.notifications),
+                Positioned(child: Icon(Icons.circle, size: 8, color: Color(0xFFFD2F22),), top: 0, right: 0,)
+              ],),
           onPressed: () {
             showDialog(context: context, builder: (context) => NotificationsPopUp());
           },
