@@ -3,13 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app/constants.dart';
 import 'package:recipe_app/models/NavItem.dart';
 import 'package:recipe_app/models/task.dart';
+import 'package:recipe_app/screens/booking/selectionProvider.dart';
 import 'package:recipe_app/screens/covid/menu.dart';
 import 'package:recipe_app/screens/home/home_screen.dart';
 import 'package:recipe_app/screens/subscription/subscriptionpage.dart';
 import 'package:recipe_app/widgets/calendarpage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => NavItems(),),
+        ChangeNotifierProvider(create: (context) => SelectionProvider())
+      ],
+      child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -80,23 +89,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => NavItems(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Cathay Pass',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          primarySwatch: AppColors.primarySwatch,
-          fontFamily: 'OpenSans',
-          // We apply this to our appBarTheme because most of our appBar have this style
-          appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white), backgroundColor: AppColors.kPrimaryColor, elevation: 0),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        // home: MenuScreen(),
-        // home: SubscriptionPage(),
-        home: CalendarPage(task),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Cathay Pass',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        primarySwatch: AppColors.primarySwatch,
+        fontFamily: 'OpenSans',
+        // We apply this to our appBarTheme because most of our appBar have this style
+        appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white), backgroundColor: AppColors.kPrimaryColor, elevation: 0),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      // home: MenuScreen(),
+      // home: SubscriptionPage(),
+      home: CalendarPage(task),
     );
   }
 }

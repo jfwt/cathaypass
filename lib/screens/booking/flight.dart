@@ -4,6 +4,8 @@ import 'package:recipe_app/components/checkbox.dart';
 import 'package:recipe_app/components/custom_nav_bar.dart';
 import 'package:recipe_app/components/my_bottom_nav_bar.dart';
 import 'package:recipe_app/constants.dart';
+import 'package:recipe_app/models/flightinfo.dart';
+import 'package:recipe_app/screens/booking/flightSelection.dart';
 import 'package:recipe_app/screens/covid/menu.dart';
 
 class BookScreen extends StatefulWidget {
@@ -23,6 +25,8 @@ class _BookScreenState extends State<BookScreen> {
   Widget build(BuildContext context) {
     if(widget._destination == null) widget._destination = 'Seoul';
     if(widget._dateRange == null) widget._dateRange = DateTimeRange(start: DateTime.now(), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+4));
+    List<FlightInfo> flightListOutbound = generateFlightInfo(widget._destination, widget._dateRange.start, true);
+    List<FlightInfo> flightListInbound = generateFlightInfo(widget._destination, widget._dateRange.start, false);
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: CustomAppBar(),
@@ -31,7 +35,7 @@ class _BookScreenState extends State<BookScreen> {
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           _buildHeader(screenHeight),
-          _buildTicket(screenHeight, widget._dateRange, widget._destination, context),
+          _buildTicket(screenHeight, widget._dateRange, widget._destination, context, flightListOutbound, flightListInbound),
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(),
@@ -110,7 +114,7 @@ class _BookScreenState extends State<BookScreen> {
   }
 }
 
-SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, String destination, context) {
+SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, String destination, context, List<FlightInfo> flightListOutbound, List<FlightInfo> flightListInbound) {
   bool isChecked = true;
   DateFormat dateFormatFullEn = DateFormat('dd MMM yyyy',);
   return SliverToBoxAdapter(
@@ -170,7 +174,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                 Row(
                   children: <Widget>[
                     Text(
-                      "ICN",
+                      flightListOutbound.first.flightFrom,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -256,7 +260,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                       width: 16,
                     ),
                     Text(
-                      "HKG",
+                      flightListOutbound.first.flightTo,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -271,11 +275,11 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                     SizedBox(
                         width: 100,
                         child: Text(
-                          "Seoul",
+                          flightListOutbound.first.flightFromCity,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )),
                     Text(
-                      "3H 30M",
+                      flightListOutbound.first.duration,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
@@ -284,7 +288,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                     SizedBox(
                         width: 100,
                         child: Text(
-                          'Hong Kong',
+                          flightListOutbound.first.flightToCity,
                           textAlign: TextAlign.end,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )),
@@ -297,14 +301,14 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "10:00 AM",
+                      flightListOutbound.first.takeOffTime,
                       style: TextStyle(
                           fontSize: 18,
                           color: AppColors.dark,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "02:30 PM",
+                      flightListOutbound.first.landingTime,
                       style: TextStyle(
                           fontSize: 18,
                           color: AppColors.dark,
@@ -327,7 +331,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                         Text(
-                          "CX8987",
+                          flightListOutbound.first.flightNumber,
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -364,7 +368,9 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                           color: AppColors.kPrimaryColor
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FlightSelection()));
+                        },
                         child: Text(
                           "Reselect",
                           textAlign: TextAlign.end,
@@ -417,7 +423,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                 Row(
                   children: <Widget>[
                     Text(
-                      "HKG",
+                      flightListInbound.first.flightFrom,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -503,7 +509,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                       width: 16,
                     ),
                     Text(
-                      "ICN",
+                      flightListInbound.first.flightTo,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -520,11 +526,11 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                     SizedBox(
                         width: 100,
                         child: Text(
-                          "Hong Kong",
+                          flightListInbound.first.flightFromCity,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )),
                     Text(
-                      "3H 30M",
+                      flightListInbound.first.duration,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
@@ -533,7 +539,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                     SizedBox(
                         width: 100,
                         child: Text(
-                          'Seoul',
+                          flightListInbound.first.flightToCity,
                           textAlign: TextAlign.end,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )),
@@ -546,14 +552,14 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "06:00 PM",
+                      flightListInbound.first.takeOffTime,
                       style: TextStyle(
                           fontSize: 18,
                           color: AppColors.dark,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "08:30 PM",
+                      flightListInbound.first.landingTime,
                       style: TextStyle(
                           fontSize: 18,
                           color: AppColors.dark,
@@ -576,7 +582,7 @@ SliverToBoxAdapter _buildTicket(double screenHeight, DateTimeRange dateRange, St
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                         Text(
-                          "CX8986",
+                          flightListInbound.first.flightNumber,
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
