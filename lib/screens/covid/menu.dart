@@ -11,7 +11,18 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  String destination = 'Seoul';
+  String destination = 'Tokyo';
+  String destination1 = 'Tokyo';
+  String warning1 = '';
+  bool trip1planned = false;
+
+  void callback1() {
+    setState(() {
+      destination1 = 'Seoul';
+      warning1 = 'Reschedule needed';
+      trip1planned = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,26 +105,28 @@ class _MenuScreenState extends State<MenuScreen> {
             // ),
             TripCard(
               tripNumber: 'Trip 1',
-              destination: destination,
-              destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
-              warning: 'Reschedule needed',
-              plannedTrip: false
+              destination: destination1,
+              destinationList: ['Tokyo', 'Seoul', 'Busan', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              //warning: 'Reschedule needed',
+              warning: warning1,
+              plannedTrip: trip1planned,
+              callback: callback1,
             ),
             SizedBox(height: 32,),
             TripCard(
               tripNumber: 'Trip 2',
               destination: destination,
-              destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              destinationList: ['Tokyo', 'Seoul', 'Busan', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
               warning: '',
-                plannedTrip: false
+              plannedTrip: false
             ),
             SizedBox(height: 32,),
             TripCard(
               tripNumber: 'Trip 3',
               destination: destination,
-              destinationList: ['Seoul', 'Busan', 'Tokyo', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
+              destinationList: ['Tokyo', 'Seoul', 'Busan', 'Singapore', 'Bangkok', 'Sydney (+HKD1,000)', 'Paris (+HKD2,000)'],
               warning: '',
-                plannedTrip: false
+              plannedTrip: false
             ),
           ],
         )

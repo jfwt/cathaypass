@@ -212,7 +212,7 @@ class _SubscriptionPlansState extends State<SubscriptionPage> {
         destination: 'Popular Asian destinations',
         hotelPackage: '5-star hotel package',
         insurance: 'Standard insurance plan',
-        selectedPlan: true,
+        selectedPlan: false,
         color: AppColors.premiumEconClassColor),
     Plan(
         planName: 'Business',

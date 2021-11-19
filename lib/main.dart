@@ -101,8 +101,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MenuScreen(),
-      // home: SubscriptionPage(),
-      home: CalendarPage(task),
+      home: SubscriptionPage(),
+      // home: CalendarPage(task),
     );
   }
 }

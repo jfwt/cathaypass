@@ -10,14 +10,16 @@ class TripCard extends StatefulWidget {
   List<String> _destinationList;
   String _warning;
   bool _plannedTrip;
-  TripCard({String tripNumber, String destination, List<String> destinationList, String warning, bool plannedTrip,}) : _tripNumber = tripNumber, _destination = destination, _destinationList = destinationList, _warning = warning, _plannedTrip = plannedTrip;
+  Function _callback;
+
+  TripCard({String tripNumber, String destination, List<String> destinationList, String warning, bool plannedTrip, Function callback,}) : _tripNumber = tripNumber, _destination = destination, _destinationList = destinationList, _warning = warning, _plannedTrip = plannedTrip, _callback = callback;
 
   @override
   _TripCardState createState() => _TripCardState();
 }
 
 class _TripCardState extends State<TripCard> {
-  DateTimeRange initialDateRange = DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+7), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+14));
+  //DateTimeRange initialDateRange = DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+7), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+14));
   DateTimeRange pickedDateRange;
   static DateFormat dateFormatEn = DateFormat('dd MMM');
 
@@ -59,7 +61,11 @@ class _TripCardState extends State<TripCard> {
                   width: 36,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookScreen(dateRange: pickedDateRange,)));
+                        Future.delayed(Duration(seconds: 1), () {
+                          if(widget._callback != null) widget._callback();
+                        });
+                        if(widget._destination != null && pickedDateRange != null)
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookScreen(dateRange: pickedDateRange,)));
                       },
                       child: Icon(Icons.edit, color: Colors.white,)
                   ),
@@ -119,9 +125,6 @@ class _TripCardState extends State<TripCard> {
                             value: widget._destination,
                             onChanged: (val) {
                               setState(() => widget._destination = val,);
-                              setState(() {
-                                widget._plannedTrip = true;
-                              });
                               },
                         ),
                       ))
@@ -139,8 +142,9 @@ class _TripCardState extends State<TripCard> {
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Colors.white, ),
                       child: Row(
                         children: [
-                          //pickedDateRange!=null ? Text('${dateFormatEn.format(pickedDateRange.start)} - ${dateFormatEn.format(pickedDateRange.end)}') :
-                          Text('${dateFormatEn.format(initialDateRange.start)} - ${dateFormatEn.format(initialDateRange.end)}'),
+                          pickedDateRange!=null ? Text('${dateFormatEn.format(pickedDateRange.start)} - ${dateFormatEn.format(pickedDateRange.end)}') : SizedBox(width: 64,),
+                          // pickedDateRange!=null ? Text('${dateFormatEn.format(pickedDateRange.start)} - ${dateFormatEn.format(pickedDateRange.end)}') :
+                          //Text('${dateFormatEn.format(initialDateRange.start)} - ${dateFormatEn.format(initialDateRange.end)}'),
                           Container(
                               width: 32, height: 40,
                               child: IconButton(
@@ -163,7 +167,7 @@ class _TripCardState extends State<TripCard> {
   dateTimeRangePicker() async {
     pickedDateRange = await showDateRangePicker(
         context: context,
-        initialDateRange: DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+7), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+14)),
+        //initialDateRange: DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+7), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+14)),
         firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
         lastDate: DateTime.utc(2022, 12, 31),
         builder: (context, child) {

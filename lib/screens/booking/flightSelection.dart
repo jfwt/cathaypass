@@ -12,8 +12,9 @@ class FlightSelection extends StatefulWidget {
 
   DateTimeRange _dateRange;
   String _destination;
+  bool _outbound;
 
-  FlightSelection({DateTimeRange dateRange, String destination}): _dateRange = dateRange, _destination = destination;
+  FlightSelection({DateTimeRange dateRange, String destination, bool outbound}): _dateRange = dateRange, _destination = destination, _outbound = outbound;
   // const FlightSelection({Key key}) : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class _FlightSelectionState extends State<FlightSelection> {
     SelectionProvider selectionProvider = Provider.of<SelectionProvider>(context, listen: true);
     if(widget._destination == null) widget._destination = 'Seoul';
     if(widget._dateRange == null) widget._dateRange = DateTimeRange(start: DateTime.now(), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+4));
-    List<FlightInfo> flightList = generateFlightInfo('Seoul', DateTime.now(), true);
+    List<FlightInfo> flightList = generateFlightInfo('Seoul', DateTime.now(), widget._outbound);
     return Scaffold(
       appBar: CustomAppBar(title: 'Flight selection',),
       backgroundColor: Colors.grey.shade200,
@@ -34,7 +35,7 @@ class _FlightSelectionState extends State<FlightSelection> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            Row(
+            widget._outbound ? Row(
               children: [
                 Container(
                   padding: EdgeInsets.all(8),
@@ -49,6 +50,28 @@ class _FlightSelectionState extends State<FlightSelection> {
                 ),
                 Text(
                   "Outbound Flight",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.dark,
+                  ),
+                ),
+              ],
+            ) : Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(Icons.flight_land, color: AppColors.kTextLigntColor),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Inbound Flight",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -264,7 +287,7 @@ class _FlightSelectionState extends State<FlightSelection> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: AppColors.kPrimaryColor),
                           child: TextButton(
                             onPressed: () {
-                              selectionProvider.changeFlightSelection(flightList, index);
+                              selectionProvider.changeFlightSelection(flightList, index, widget._outbound);
                               print(selectionProvider.getSelected(flightList, index));
                             },
                             child: Text('Select', style: TextStyle(color: AppColors.white),),
