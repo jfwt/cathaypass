@@ -13,6 +13,7 @@ class CalendarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final detailList = task.desc;
     return Scaffold(
+      //bottomNavigationBar: MyBottomNavBar(),
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
@@ -117,7 +118,8 @@ class CalendarPage extends StatelessWidget {
       actions: [
         Icon(
           Icons.notifications,
-        )
+        ),
+        SizedBox(width: 8,)
       ],
       flexibleSpace: FlexibleSpaceBar(
         title: Column(
@@ -129,7 +131,7 @@ class CalendarPage extends StatelessWidget {
                 'Trip Planner',
                 style: TextStyle(
                   fontFamily: 'Pangram',
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             )

@@ -52,7 +52,7 @@ class _SubscriptionPlansState extends State<SubscriptionPage> {
                   itemCount: subscriptionPlanList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      margin: EdgeInsets.only(bottom: 8),
+                      margin: EdgeInsets.only(bottom: 16),
                       child: ExpansionPanelList(
                         animationDuration: Duration(milliseconds: 1000),
                         expandedHeaderPadding: EdgeInsets.all(0),
@@ -61,7 +61,7 @@ class _SubscriptionPlansState extends State<SubscriptionPage> {
                           ExpansionPanel(
                               headerBuilder: (context, isExpanded) {
                                 return Container(
-                                  height: 96,
+                                  height: 92,
                                   padding: EdgeInsets.fromLTRB(16, 12, 16, 16),
                                   decoration: BoxDecoration(
                                       color: subscriptionPlanList[index].color,
@@ -77,7 +77,7 @@ class _SubscriptionPlansState extends State<SubscriptionPage> {
                                           Text(subscriptionPlanList[index].planName,
                                               style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.w600)),
                                           SizedBox(
-                                            height: 8,
+                                            height: 4,
                                           ),
                                           Text(
                                               "${r"$"}${subscriptionPlanList[index].price}/year",
